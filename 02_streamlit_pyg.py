@@ -11,11 +11,14 @@ st.title("Data Analysis with PyGWalker.")
 # データフレームの用意
 df = None
 
-# ファイル選択
+# サイドバーでファイル選択
 with st.sidebar:
-    uploaded_files = st.file_uploader("Choose a CSV file")
-    if uploaded_files is not None:
-        df = pd.read_csv(uploaded_files)
+    uploaded_file = st.file_uploader("Choose a CSV file")
+    if uploaded_file is not None:
+        df = pd.read_csv(uploaded_file)
 
-# pygwalkerで表示
-pyg.walk(df, env='Streamlit')
+# ファイルがアップロードされている場合のみ pygwalker を表示
+if df is not None:
+    pyg.walk(df, env='Streamlit')
+else:
+    st.info("CSVファイルをアップロードしてください。")
